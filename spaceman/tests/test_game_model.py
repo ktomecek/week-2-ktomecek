@@ -172,3 +172,55 @@ class GameModelTests( TestCase ):
 
     def test_is_game_over_is_true_if_all_letters_guessed( self ):
         pass
+
+    def test_is_game_over_is_true_if_guess_made_and_last_allowed_guess( self ): ### Number 1 in the assignment
+        expectedGuessesTaken = 10
+        game = Game( 
+            guesses_allowed= 0, 
+            guesses_taken= expectedGuessesTaken
+        )
+
+        game.handleGuess('X')
+        self.assertEquals(game.is_game_over, True)
+
+    def test_is_game_over_is_true_if_last_guess_with_missing_last_letter( self ): ### Number 2 in the assignment
+        initialLettersGuessed = ['S', 'A', 'W', 'O', 'R','C']
+        game = Game( 
+            word= 'TESTWORD',
+            guessed_word_state= ['','E','S','','W','O','R','D'],
+            letters_guessed = initialLettersGuessed.copy(),
+            guesses_allowed= 10, 
+            guesses_taken= 10
+        )
+
+        guess = 'T'
+        game.handleGuess(guess)
+        self.assertEquals(game.is_game_over, True)
+
+    def test_is_game_over_false_if_guess_made_and_letter_in_word( self ):  ### Number 3 in the assignment
+        initialLettersGuessed = ['', '', '', '', '','']
+        game = Game( 
+            word= 'TESTWORD',
+            guessed_word_state= ['','','','','','','',''],
+            letters_guessed = initialLettersGuessed.copy(),
+            guesses_allowed= 10, 
+            guesses_taken= 0
+        )
+
+        guess = 'T'
+        game.handleGuess(guess)
+        self.assertEquals(game.is_game_over, False)
+
+    def test_is_game_over_false_if_guess_made_and_letter_not_in_word( self ):  ### Number 4 in the assignment
+        initialLettersGuessed = ['', '', '', '', '','']
+        game = Game( 
+            word= 'TESTWORD',
+            guessed_word_state= ['','','','','','','',''],
+            letters_guessed = initialLettersGuessed.copy(),
+            guesses_allowed= 10, 
+            guesses_taken= 0
+        )
+
+        guess = 'X'
+        game.handleGuess(guess)
+        self.assertEquals(game.is_game_over, False)
