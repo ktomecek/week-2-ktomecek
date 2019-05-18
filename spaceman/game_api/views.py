@@ -38,4 +38,5 @@ def game_solution( request, game_id = None ):
         return Response( GameSolutionSerializer( game, many = False ).data )
     else:
         # Framework should be handling this case
-        pass
+        return Response( serializedGame.errors, status = status.HTTP_404_NOT_FOUND)
+        ### pass
